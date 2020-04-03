@@ -5,29 +5,36 @@
  */
 package views;
 
+import classes.Database;
 import classes.User;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author jhonn250
  */
 public class SellerView extends javax.swing.JFrame {
+    Database d;
 
     /**
      * Creates new form SellerView
      */
-    public SellerView() {
+    public SellerView() throws IOException {
+        d = new Database();
         initComponents();
         deactivate();
     }
     
     public void activate(){
-        IDTXT.setEnabled(true);
         NAMETXT.setEnabled(true);
         APTXT.setEnabled(true);
         AMTXT.setEnabled(true);
         ADDRESSTXT.setEnabled(true);
         PHONETXT.setEnabled(true);
+        EMAILTXT.setEnabled(true);
         COUNTRYCBX.setEnabled(true);
         CITYTXT.setEnabled(true);
         PasswordTXT.setEnabled(true);
@@ -48,17 +55,17 @@ public class SellerView extends javax.swing.JFrame {
         AMTXT.setEnabled(false);
         ADDRESSTXT.setEnabled(false);
         PHONETXT.setEnabled(false);
+        EMAILTXT.setEnabled(false);
         COUNTRYCBX.setEnabled(false);
         CITYTXT.setEnabled(false);
         PasswordTXT.setEnabled(false);
         V_PasswordTXT.setEnabled(false);
-        FINDTXT.setEnabled(false);
         
         btnSAVE.setEnabled(false);
         btnCANCEL.setEnabled(false);
         btnDELETE.setEnabled(false);
         btnEDIT.setEnabled(false);
-        btnFIND.setEnabled(false);
+        
     }
     
     public void clearTXT(){
@@ -68,6 +75,7 @@ public class SellerView extends javax.swing.JFrame {
         AMTXT.setText("");
         ADDRESSTXT.setText("");
         PHONETXT.setText("");
+        EMAILTXT.setText("");
         COUNTRYCBX.setSelectedIndex(-1);
         CITYTXT.setText("");
         PasswordTXT.setText("");
@@ -76,15 +84,15 @@ public class SellerView extends javax.swing.JFrame {
         
     }
     
-    public User addUser(User u) {
+    public User addSeller() {
+        User u = new User();
         u.setID(Integer.parseInt(IDTXT.getText()));
         u.setName(NAMETXT.getText());
         u.setLast(APTXT.getText());
         u.setSLast(AMTXT.getText());
         u.setAddress(ADDRESSTXT.getText());
         u.setPhone(PHONETXT.getText());
-        //u.setEmail(EmailText.getText());
- 
+        u.setEmail(EMAILTXT.getText());
         u.setState((String) COUNTRYCBX.getSelectedItem());
         u.setCity(CITYTXT.getText());
         //if(PasswordTXT.getPassword() == V_PasswordTXT.getPassword()){
@@ -94,6 +102,30 @@ public class SellerView extends javax.swing.JFrame {
         return u;
     }
     
+    public void displayPerson(User u) {
+        if (u.getID() != 0) {
+            IDTXT.setText(String.valueOf(u.getID()));
+            NAMETXT.setText(u.getName());
+            APTXT.setText(u.getLast());
+            AMTXT.setText(u.getSLast());
+            ADDRESSTXT.setText(u.getAddress());
+            PHONETXT.setText(u.getPhone());
+            EMAILTXT.setText(u.getEmail());
+            COUNTRYCBX.setSelectedItem(u.getState());
+            CITYTXT.setText(u.getCity());
+           
+        }else{
+            JOptionPane.showMessageDialog(null, "Vendedor no encontrado.");
+        }      
+    } 
+    
+    public int ID() {
+        int size = d.getSizeSeller();
+        size++;
+        return size;
+    }
+   
+
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -146,6 +178,9 @@ public class SellerView extends javax.swing.JFrame {
         AMTXT = new javax.swing.JTextField();
         PasswordTXT = new javax.swing.JPasswordField();
         V_PasswordTXT = new javax.swing.JPasswordField();
+        btnBACK = new javax.swing.JButton();
+        EMAILTXT = new javax.swing.JTextField();
+        JLABEL = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -155,7 +190,7 @@ public class SellerView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Ingrese Nombre Usuario:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, -1, -1));
 
         separator.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 5));
         getContentPane().add(separator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 400, 4));
@@ -168,7 +203,7 @@ public class SellerView extends javax.swing.JFrame {
                 btnFINDActionPerformed(evt);
             }
         });
-        getContentPane().add(btnFIND, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, 60, 60));
+        getContentPane().add(btnFIND, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, 60, 60));
 
         btnNEW.setText("Nuevo");
         btnNEW.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +224,7 @@ public class SellerView extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("ID:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
-        getContentPane().add(FINDTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 230, -1));
+        getContentPane().add(FINDTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 230, -1));
 
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,19 +315,44 @@ public class SellerView extends javax.swing.JFrame {
         getContentPane().add(PasswordTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 230, -1));
         getContentPane().add(V_PasswordTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 230, -1));
 
+        btnBACK.setText("Regresar");
+        btnBACK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBACKActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBACK, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, -1, -1));
+        getContentPane().add(EMAILTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, -1));
+
+        JLABEL.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
+        JLABEL.setForeground(new java.awt.Color(255, 255, 255));
+        JLABEL.setText("E-mail:");
+        getContentPane().add(JLABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seller view.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         setSize(new java.awt.Dimension(800, 522));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFINDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFINDActionPerformed
         // TODO add your handling code here:
+        User u;
+        u = d.searchSeller(FINDTXT.getText());
+        displayPerson(u);
+        if(u.getID() != 0){
+            activate();
+            PasswordTXT.setEnabled(false);
+            V_PasswordTXT.setEnabled(false);      
+        }
+        IDTXT.setText(String.valueOf(u.getID()));
     }//GEN-LAST:event_btnFINDActionPerformed
 
     private void btnNEWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNEWActionPerformed
         // TODO add your handling code here:
         activate();
+        IDTXT.setText(String.valueOf(ID()));
     }//GEN-LAST:event_btnNEWActionPerformed
 
     private void btnDELETEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDELETEActionPerformed
@@ -311,7 +371,27 @@ public class SellerView extends javax.swing.JFrame {
 
     private void btnSAVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSAVEActionPerformed
         // TODO add your handling code here:
+        try {
+            d.saveSeller(addSeller());
+            JOptionPane.showMessageDialog(null, "Guardado con éxito.");
+            clearTXT();
+            deactivate();
+        } catch (IOException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSAVEActionPerformed
+
+    private void btnBACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBACKActionPerformed
+        try {
+            // TODO add your handling code here:
+            LoginSeller loginSellerWindow;
+            loginSellerWindow = new LoginSeller();
+            loginSellerWindow.show();
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(SellerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBACKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,7 +423,11 @@ public class SellerView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SellerView().setVisible(true);
+                try {
+                    new SellerView().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(SellerView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -354,12 +438,15 @@ public class SellerView extends javax.swing.JFrame {
     private javax.swing.JTextField APTXT;
     private javax.swing.JTextField CITYTXT;
     private javax.swing.JComboBox<String> COUNTRYCBX;
+    private javax.swing.JTextField EMAILTXT;
     private javax.swing.JTextField FINDTXT;
     private javax.swing.JTextField IDTXT;
+    private javax.swing.JLabel JLABEL;
     private javax.swing.JTextField NAMETXT;
     private javax.swing.JTextField PHONETXT;
     private javax.swing.JPasswordField PasswordTXT;
     private javax.swing.JPasswordField V_PasswordTXT;
+    private javax.swing.JButton btnBACK;
     private javax.swing.JButton btnCANCEL;
     private javax.swing.JButton btnDELETE;
     private javax.swing.JButton btnEDIT;

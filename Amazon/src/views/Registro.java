@@ -53,6 +53,7 @@ public class Registro extends javax.swing.JFrame {
         btnEDIT.setEnabled(true);
         btnFIND.setEnabled(true);
         
+        
     }
     
     public void deactivate(){
@@ -67,13 +68,12 @@ public class Registro extends javax.swing.JFrame {
         CITYTXT.setEnabled(false);
         PasswordTXT.setEnabled(false);
         V_PasswordTXT.setEnabled(false);
-        FINDTXT.setEnabled(false);
         
         btnSAVE.setEnabled(false);
         btnCANCEL.setEnabled(false);
         btnDELETE.setEnabled(false);
         btnEDIT.setEnabled(false);
-        btnFIND.setEnabled(false);
+      
     }
     
     public void clearTXT(){
@@ -188,6 +188,7 @@ public class Registro extends javax.swing.JFrame {
         V_PasswordTXT = new javax.swing.JPasswordField();
         jLabel21 = new javax.swing.JLabel();
         PHONETXT = new javax.swing.JTextField();
+        btnBACK = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -329,6 +330,14 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
         getContentPane().add(PHONETXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, -1));
 
+        btnBACK.setText("Regresar");
+        btnBACK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBACKActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBACK, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/buyer view.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -349,6 +358,9 @@ public class Registro extends javax.swing.JFrame {
     private void btnSAVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSAVEActionPerformed
         try {
             d.saveUser(addUser());
+            JOptionPane.showMessageDialog(null, "Guardado con éxito.");
+            clearTXT();
+            deactivate();
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -375,6 +387,18 @@ public class Registro extends javax.swing.JFrame {
         }
         IDTXT.setText(String.valueOf(u.getID()));
     }//GEN-LAST:event_btnFINDActionPerformed
+
+    private void btnBACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBACKActionPerformed
+        try {
+            // TODO add your handling code here:
+            Login loginWindow;
+            loginWindow = new Login();
+            loginWindow.show();
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBACKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,6 +453,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField PHONETXT;
     private javax.swing.JPasswordField PasswordTXT;
     private javax.swing.JPasswordField V_PasswordTXT;
+    private javax.swing.JButton btnBACK;
     private javax.swing.JButton btnCANCEL;
     private javax.swing.JButton btnDELETE;
     private javax.swing.JButton btnEDIT;

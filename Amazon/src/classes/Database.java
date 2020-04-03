@@ -42,6 +42,9 @@ public class Database {
         usersRaf = new RandomAccessFile(usersFile, "rw");
         usersRaf.seek(0);
         
+        sellerRaf = new RandomAccessFile(sellerFile, "rw");
+        sellerRaf.seek(0);
+        
         while (usersRaf.getFilePointer() != usersRaf.length()) {
             u = new User();
            
@@ -60,8 +63,6 @@ public class Database {
 
         }
         
-        sellerRaf = new RandomAccessFile(sellerFile, "rw");
-        sellerRaf.seek(0);
         
         while (sellerRaf.getFilePointer() != sellerRaf.length()) {
             u = new User();
@@ -72,7 +73,7 @@ public class Database {
             u.setSLast(sellerRaf.readUTF());
             u.setAddress(sellerRaf.readUTF());
             u.setPhone(sellerRaf.readUTF());
-            u.setPhone(sellerRaf.readUTF());
+            u.setEmail(sellerRaf.readUTF());
             u.setState(sellerRaf.readUTF());
             u.setCity(sellerRaf.readUTF());
             u.setPassword(sellerRaf.readUTF());
@@ -198,6 +199,36 @@ public class Database {
             }
         }
         updateSellers();
+    }
+    
+    
+
+    public boolean validateUser(String email, String password){
+        boolean valid = false;
+        
+        for(User u: users){
+            if(u.getEmail().equals(email)){
+                if(u.getPassword().equals(password)){
+                    valid = true;
+                }
+                break;
+            }
+        }
+        return valid;
+    }
+    
+    public boolean validateSeller(String email, String password){
+        boolean valid = false;
+        
+        for(User u: seller){
+            if(u.getEmail().equals(email)){
+                if(u.getPassword().equals(password)){
+                    valid = true;
+                }
+                break;
+            }
+        }
+        return valid;
     }
    
     

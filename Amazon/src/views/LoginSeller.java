@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package views;
 
 import classes.Database;
@@ -6,23 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author jhonn250
  */
-public class Login extends javax.swing.JFrame {
+public class LoginSeller extends javax.swing.JFrame {
     Database db;
-
     /**
-     * Creates new form Login
+     * Creates new form LoginSeller
      */
-    public Login() throws IOException {
+    public LoginSeller() throws IOException {
         db = new Database();
         initComponents();
     }
@@ -42,25 +40,23 @@ public class Login extends javax.swing.JFrame {
         btnNew = new javax.swing.JButton();
         btnIngresar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btnSELLER = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnBACK = new javax.swing.JButton();
         passwordTXT = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(userTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 250, 30));
+        getContentPane().add(userTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 250, 30));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 3, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("PASSWORD:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 110, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 110, 30));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("EMAIL:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 80, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 80, 30));
 
         btnNew.setText("Registro");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
@@ -77,29 +73,22 @@ public class Login extends javax.swing.JFrame {
                 btnIngresarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 110, 50));
+        getContentPane().add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 110, 50));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/amazon logo.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 320, 120));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/amazon seller.png"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 480, 200));
 
-        btnSELLER.setBackground(new java.awt.Color(255, 255, 255));
-        btnSELLER.setText("Vendedor");
-        btnSELLER.addActionListener(new java.awt.event.ActionListener() {
+        btnBACK.setText("Regresar");
+        btnBACK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSELLERActionPerformed(evt);
+                btnBACKActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSELLER, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 40));
+        getContentPane().add(btnBACK, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 40));
+        getContentPane().add(passwordTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 250, 30));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("¿Eres vendedor?");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-        getContentPane().add(passwordTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 250, 30));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/fondo.png"))); // NOI18N
-        jLabel1.setRequestFocusEnabled(false);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seller login.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         setSize(new java.awt.Dimension(800, 522));
         setLocationRelativeTo(null);
@@ -108,37 +97,36 @@ public class Login extends javax.swing.JFrame {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         try {
             // TODO add your handling code here:
-            Registro registroWindow;
-            registroWindow = new Registro();
-            registroWindow.show();
+            SellerView sellerviewWindow;
+            sellerviewWindow = new SellerView();
+            sellerviewWindow.show();
             this.dispose();
         } catch (IOException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginSeller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        if(db.validateUser(userTXT.getText(), passwordTXT.getText())){
-            JOptionPane.showMessageDialog(null, "Bienvenido");    
+        if(db.validateSeller(userTXT.getText(), passwordTXT.getText())){
+            JOptionPane.showMessageDialog(null, "Bienvenido");
         }
         else{
             JOptionPane.showMessageDialog(null, "Usuario incorrecto");
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void btnSELLERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSELLERActionPerformed
-        // TODO add your handling code here:
+    private void btnBACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBACKActionPerformed
         try {
             // TODO add your handling code here:
-            LoginSeller loginSellerWindow;
-            loginSellerWindow = new LoginSeller();
-            loginSellerWindow.show();
+            Login loginWindow;
+            loginWindow = new Login();
+            loginWindow.show();
             this.dispose();
         } catch (IOException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginSeller.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnSELLERActionPerformed
+    }//GEN-LAST:event_btnBACKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,13 +145,13 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -171,19 +159,18 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Login().setVisible(true);
+                    new LoginSeller().setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LoginSeller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBACK;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnNew;
-    private javax.swing.JButton btnSELLER;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
