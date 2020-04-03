@@ -6,6 +6,7 @@
 package classes;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -20,7 +21,7 @@ public class RandomAccess {
         file = new File("USERS.obj");
         raf = new RandomAccessFile(file,"rw");
         raf.seek(0);
-        raf.writeUTF(u.getID());
+        raf.writeInt(u.getID());
         raf.writeUTF(u.getName());
         raf.writeUTF(u.getLast());
         raf.writeUTF(u.getSLast());
@@ -43,7 +44,7 @@ public class RandomAccess {
         file = new File("USERS.obj");
         raf = new RandomAccessFile(file, "rw");
         raf.seek(raf.length());
-        raf.writeUTF(u.getID());
+        raf.writeInt(u.getID());
         raf.writeUTF(u.getName());
         raf.writeUTF(u.getLast());
         raf.writeUTF(u.getSLast());
@@ -56,14 +57,24 @@ public class RandomAccess {
     }
     
    public void print() throws Exception{
+       User u = new User();
        file = new File("USERS.obj");
        raf = new RandomAccessFile(file, "rw");
        raf.seek(0);
        try{
            while(true){
-               System.out.println((raf.readDouble()));
+               u.setName(raf.readUTF());
            }
        }catch(IOException ex){
+       }
+   }
+   
+   public void rellena() throws Exception{
+       file = new File("USERS.obj");
+       raf = new RandomAccessFile(file, "rw");
+       raf.seek(0);
+       while(true){
+                 
        }
    }
        

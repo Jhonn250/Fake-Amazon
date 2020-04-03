@@ -77,7 +77,7 @@ public class SellerView extends javax.swing.JFrame {
     }
     
     public User addUser(User u) {
-        u.setID(IDTXT.getText());
+        u.setID(Integer.parseInt(IDTXT.getText()));
         u.setName(NAMETXT.getText());
         u.setLast(APTXT.getText());
         u.setSLast(AMTXT.getText());

@@ -2,10 +2,15 @@ package views;
 
 import classes.User;
 import classes.RandomAccess;
+import classes.Database;
+import java.io.IOException;
+
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,22 +23,24 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JFrame {
     RandomAccess ra = new RandomAccess();
+    Database d;
 
     /**
      * Creates new form Registro
      */
-    public Registro() {
+    public Registro() throws IOException {
+        d = new Database();
         initComponents();
         deactivate();
     }
     
     public void activate(){
-        IDTXT.setEnabled(true);
         NAMETXT.setEnabled(true);
         APTXT.setEnabled(true);
         AMTXT.setEnabled(true);
         ADDRESSTXT.setEnabled(true);
         PHONETXT.setEnabled(true);
+        EMAILTXT.setEnabled(true);
         COUNTRYCBX.setEnabled(true);
         CITYTXT.setEnabled(true);
         PasswordTXT.setEnabled(true);
@@ -55,6 +62,7 @@ public class Registro extends javax.swing.JFrame {
         AMTXT.setEnabled(false);
         ADDRESSTXT.setEnabled(false);
         PHONETXT.setEnabled(false);
+        EMAILTXT.setEnabled(false);
         COUNTRYCBX.setEnabled(false);
         CITYTXT.setEnabled(false);
         PasswordTXT.setEnabled(false);
@@ -75,6 +83,7 @@ public class Registro extends javax.swing.JFrame {
         AMTXT.setText("");
         ADDRESSTXT.setText("");
         PHONETXT.setText("");
+        EMAILTXT.setText("");
         COUNTRYCBX.setSelectedIndex(-1);
         CITYTXT.setText("");
         PasswordTXT.setText("");
@@ -85,14 +94,13 @@ public class Registro extends javax.swing.JFrame {
     
     public User addUser() {
         User u = new User();
-        u.setID(IDTXT.getText());
+        u.setID(Integer.parseInt(IDTXT.getText()));
         u.setName(NAMETXT.getText());
         u.setLast(APTXT.getText());
         u.setSLast(AMTXT.getText());
         u.setAddress(ADDRESSTXT.getText());
         u.setPhone(PHONETXT.getText());
-        //u.setEmail(EmailText.getText());
- 
+        u.setEmail(EMAILTXT.getText());
         u.setState((String) COUNTRYCBX.getSelectedItem());
         u.setCity(CITYTXT.getText());
         //if(PasswordTXT.getPassword() == V_PasswordTXT.getPassword()){
@@ -100,6 +108,30 @@ public class Registro extends javax.swing.JFrame {
         //}
 
         return u;
+    }
+    
+    public void displayPerson(User u) {
+        if (u.getID() != 0) {
+            IDTXT.setText(String.valueOf(u.getID()));
+            NAMETXT.setText(u.getName());
+            APTXT.setText(u.getLast());
+            AMTXT.setText(u.getSLast());
+            ADDRESSTXT.setText(u.getAddress());
+            PHONETXT.setText(u.getPhone());
+            EMAILTXT.setText(u.getEmail());
+            COUNTRYCBX.setSelectedItem(u.getState());
+            CITYTXT.setText(u.getCity());
+           
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+        }
+            
+    } 
+    
+    public int ID() {
+        int size = d.getSizeUsers();
+        size++;
+        return size;
     }
     
     public static boolean isNumeric(String strNum) {
@@ -125,7 +157,7 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel4 = new javax.swing.JLabel();
         separator = new javax.swing.JSeparator();
-        PHONETXT = new javax.swing.JTextField();
+        EMAILTXT = new javax.swing.JTextField();
         NAMETXT = new javax.swing.JTextField();
         btnFIND = new javax.swing.JButton();
         btnNEW = new javax.swing.JButton();
@@ -141,7 +173,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        JLABEL = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -154,6 +186,8 @@ public class Registro extends javax.swing.JFrame {
         AMTXT = new javax.swing.JTextField();
         PasswordTXT = new javax.swing.JPasswordField();
         V_PasswordTXT = new javax.swing.JPasswordField();
+        jLabel21 = new javax.swing.JLabel();
+        PHONETXT = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,9 +201,10 @@ public class Registro extends javax.swing.JFrame {
 
         separator.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 5));
         getContentPane().add(separator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 400, 4));
-        getContentPane().add(PHONETXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, -1));
+        getContentPane().add(EMAILTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, -1));
         getContentPane().add(NAMETXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 230, -1));
 
+        btnFIND.setBackground(new java.awt.Color(255, 255, 255));
         btnFIND.setText("FIND");
         btnFIND.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,10 +261,10 @@ public class Registro extends javax.swing.JFrame {
         jLabel16.setText("Estado:");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Teléfono:");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        JLABEL.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
+        JLABEL.setForeground(new java.awt.Color(255, 255, 255));
+        JLABEL.setText("E-mail:");
+        getContentPane().add(JLABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -288,6 +323,12 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(PasswordTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 230, -1));
         getContentPane().add(V_PasswordTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 230, -1));
 
+        jLabel21.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("Teléfono:");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        getContentPane().add(PHONETXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/buyer view.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -301,20 +342,14 @@ public class Registro extends javax.swing.JFrame {
 
     private void btnNEWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNEWActionPerformed
         // TODO add your handling code here:
-        try {
-            activate();
-            ra.createFile();
-        } catch (Exception ex) {
-            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(rootPane, "NO FUNCIONA");
-        }
+        activate();
+        IDTXT.setText(String.valueOf(ID()));
     }//GEN-LAST:event_btnNEWActionPerformed
 
     private void btnSAVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSAVEActionPerformed
         try {
-            // TODO add your handling code here:
-            ra.addEnd(addUser());
-        } catch (Exception ex) {
+            d.saveUser(addUser());
+        } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSAVEActionPerformed
@@ -330,7 +365,15 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEDITActionPerformed
 
     private void btnFINDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFINDActionPerformed
-        // TODO add your handling code here:
+        User u;
+        u = d.searchUser(FINDTXT.getText());
+        displayPerson(u);
+        if(u.getID() != 0){
+            activate();
+            PasswordTXT.setEnabled(false);
+            V_PasswordTXT.setEnabled(false);      
+        }
+        IDTXT.setText(String.valueOf(u.getID()));
     }//GEN-LAST:event_btnFINDActionPerformed
 
     /**
@@ -363,7 +406,11 @@ public class Registro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registro().setVisible(true);
+                try {
+                    new Registro().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -374,8 +421,10 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField APTXT;
     private javax.swing.JTextField CITYTXT;
     private javax.swing.JComboBox<String> COUNTRYCBX;
+    private javax.swing.JTextField EMAILTXT;
     private javax.swing.JTextField FINDTXT;
     private javax.swing.JTextField IDTXT;
+    private javax.swing.JLabel JLABEL;
     private javax.swing.JTextField NAMETXT;
     private javax.swing.JTextField PHONETXT;
     private javax.swing.JPasswordField PasswordTXT;
@@ -392,11 +441,11 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;

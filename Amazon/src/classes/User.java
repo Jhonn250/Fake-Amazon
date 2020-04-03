@@ -11,7 +11,7 @@ package classes;
  */
 public class User {
     
-    private String ID = "";
+    private int ID = 0;
     private String name = "";
     private String last = ""; //first last name
     private String sLast = ""; //second last name
@@ -23,7 +23,7 @@ public class User {
     private String password = "";
 
 
-public void fakeOverload(User u){
+public void set(User u){
         this.setID(u.getID());
         this.setName(u.getName());
         this.setLast(u.getLast());
@@ -37,11 +37,11 @@ public void fakeOverload(User u){
     }
 
 
-    public void setID(String value){
+    public void setID(int value){
         ID = value;
     }
     
-    public String getID(){
+    public int getID(){
         return ID;
     }
     
